@@ -15,31 +15,28 @@ export function TaskList() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   function handleCreateNewTask() {
-    if(newTaskTitle !== ''){
-      var randomId = Math.round((Math.random()*1000) + 1)
+    if(newTaskTitle !== '') {
       const task : Task = {
-        id: randomId,
+        id: Math.round(Math.random()*1000) + 1,
         title: newTaskTitle,
         isComplete: false,
       }
-      setTasks(oldState => [...oldState, task])
-    } else return;
+      setTasks([...tasks, task])
+    } else return
   }
 
   function handleToggleTaskCompletion(id: number) {
-    const serializedTasks = tasks.map(task => {
+    tasks.map(task => {
       if(task.id === id){
-        task.isComplete = !task.isComplete
+        return task.isComplete = !task.isComplete
       }
       return task
     })
-    setTasks(serializedTasks)
+    setTasks([...tasks])
   }
 
   function handleRemoveTask(id: number) {
-    const removedTasks = tasks.filter(task => {
-      return task.id !== id
-    })
+    const removedTasks = tasks.filter(task => task.id !== id );
     setTasks(removedTasks)
   }
 
